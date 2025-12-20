@@ -1,6 +1,6 @@
 # Galaxy Simulator
 
-A Java-based gravitational N-body simulator that visualizes orbital mechanics and celestial body interactions. This application demonstrates various periodic solutions to the N-body problem, including Lagrange points, figure-eight orbits, and other choreographic solutions.
+A Java-based gravitational N-body simulator that visualizes orbital mechanics and celestial body interactions by Prof. Robert Vanderbei. This application demonstrates various periodic solutions to the N-body problem, including Lagrange points, figure-eight orbits, and other choreographic solutions.
 
 ## Running the Application
 
