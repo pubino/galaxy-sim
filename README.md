@@ -13,7 +13,12 @@ A Java-based gravitational N-body simulator that visualizes orbital mechanics an
 From the `galaxy-sim` directory:
 
 ```bash
-java -cp . astro.galaxy.Galaxy
+# Build and run
+make run
+
+# Or build the macOS app and double-click it
+make app
+open dist/GalaxySimulator.app
 ```
 
 ### Usage
