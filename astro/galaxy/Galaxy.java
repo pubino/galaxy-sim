@@ -27,8 +27,10 @@ public class Galaxy extends JApplet implements ActionListener, WindowListener,
 	JComboBox SELECTION;
 	JComboBox INTEGRATOR;
 
-	// Menu item reference for syncing with button
+	// Menu item references for syncing with buttons
 	CheckboxMenuItem menuTrailsItem;
+	MenuItem menuStartItem;
+	MenuItem menuPauseItem;
 
 	JPanel gp;
 	JPanel tp;
@@ -145,6 +147,9 @@ public class Galaxy extends JApplet implements ActionListener, WindowListener,
 	    TRAIL.setToolTipText("Show historical trails");
 	    APPLY.setToolTipText("Apply the parameters dt and warp");
 
+	    // Disable controls until an instance is selected
+	    setControlsEnabled(false);
+
 	    gp = new JPanel();
 	    gp.setLayout(new BoxLayout(gp, BoxLayout.X_AXIS));
 	    gp.add(new JLabel("Instance:"));
@@ -195,51 +200,57 @@ public class Galaxy extends JApplet implements ActionListener, WindowListener,
 	}
 
 	public void itemStateChanged(ItemEvent e) {
-	  if (e.getItem().equals("L1-L5 M/m=2")) {rotrate=0; dt=1.0e-6; warp=200; n=7; N.enable();} else 
-	  if (e.getItem().equals("LagrangeN")) {rotrate=0; dt=0.001; warp=5; n=100; N.enable();} else 
-	  if (e.getItem().equals("Lagrange2")) {rotrate=0; dt=0.001; warp=20; n=2; N.disable();} else 
-	  if (e.getItem().equals("Lagrange3")) {rotrate=0; dt=0.001; warp=20; n=3; N.disable();} else 
-	  if (e.getItem().equals("Lagrange20")) {rotrate=0; dt=0.001; warp=20; n=20; N.disable();} else 
-	  if (e.getItem().equals("FigureEight3")) {rotrate=0; dt=0.001; warp=20;n=3; N.disable();} else 
-	  if (e.getItem().equals("FigureEight5")) {rotrate=0; dt=0.0001; warp=200;n=5; N.disable();} else 
-	  if (e.getItem().equals("FigureEight21")) {rotrate=0; dt=0.0001; warp=200;n=21; N.disable();} else 
-	  if (e.getItem().equals("Trefoil5")) {rotrate=0; dt=0.0001; warp=200;n=5; N.disable();} else 
-	  if (e.getItem().equals("Braid4")) {rotrate=0; dt=0.0001; warp=200;n=4; N.disable();} else 
-	  if (e.getItem().equals("LagrangeNa")) {rotrate=0; dt=0.001; warp=5; n=100; N.enable();} else 
-	  if (e.getItem().equals("Saturn")) {rotrate=0; dt=0.00001; warp=5; n=100; N.enable();} else 
-	  if (e.getItem().equals("Saturn2")) {rotrate=0; dt=0.00001; warp=5; n=100; N.enable();} else 
-	  if (e.getItem().equals("Trefoil4")) {rotrate=0; dt=0.001; warp=5; n=4; N.disable();} else 
-	  if (e.getItem().equals("FoldedTriLoop4")) {rotrate=0; dt=0.001; warp=5; n=4; N.disable();} else 
-	  if (e.getItem().equals("Ducati3")) {rotrate=0; dt=0.001; warp=50; n=3; N.disable();} else 
-	  if (e.getItem().equals("OrthQuasiEllipse4")) {rotrate=0; dt=0.0001; warp=500; n=4; N.disable();} else 
-	  if (e.getItem().equals("PlateSaucer4")) {rotrate=0; dt=0.0001; warp=500; n=4; N.disable();} else 
-	  if (e.getItem().equals("Rosette4")) {rotrate=0; dt=0.0005; warp=50; n=4; N.disable();} else 
-	  if (e.getItem().equals("Hill15")) {rotrate=0; dt=0.0005; warp=50; n=3; N.disable();} else 
-	  if (e.getItem().equals("DoubleDouble5")) {rotrate=0; dt=0.0005; warp=50; n=4; N.disable();} else 
-	  if (e.getItem().equals("DoubleDouble10")) {rotrate=0; dt=0.0005; warp=50; n=4; N.disable();} else 
-	  if (e.getItem().equals("DoubleDouble20")) {rotrate=0; dt=0.0005; warp=50; n=4; N.disable();} else 
-	  if (e.getItem().equals("BorderCollie4")) {rotrate=0; dt=0.0005; warp=50; n=4; N.disable();} else 
-	  if (e.getItem().equals("Lagrange3a")) {rotrate=0; dt=0.0005; warp=50; n=3; N.disable();} else 
-	  if (e.getItem().equals("Test")) {rotrate=0; dt=0.0005; warp=50; n=4; N.disable();} else 
-	  if (e.getItem().equals("Test1")) {rotrate=0; dt=0.0005; warp=50; n=4; N.disable();} else 
-	  if (e.getItem().equals("Hill3_2")) {rotrate=0; dt=0.0005; warp=50; n=3; N.disable();} else 
-	  if (e.getItem().equals("Hill3_3")) {rotrate=0; dt=0.0005; warp=50; n=3; N.disable();} else 
-	  if (e.getItem().equals("Hill3_0.5")) {rotrate=0; dt=0.0005; warp=50; n=3; N.disable();} else 
-	  if (e.getItem().equals("L5")) {rotrate=0; dt=0.0005; warp=50; n=4; N.disable();} else 
-	  if (e.getItem().equals("Test2")) {rotrate=0; dt=0.0005; warp=50; n=4; N.disable();} else 
-	  if (e.getItem().equals("Test3")) {rotrate=0; dt=0.0005; warp=50; n=3; N.disable();} else 
-	  if (e.getItem().equals("Ducati3_2")) {rotrate=0; dt=0.0005; warp=50; n=3; N.disable();} else 
-	  if (e.getItem().equals("Ducati3_0.5")) {rotrate=0; dt=0.0005; warp=50; n=3; N.disable();} else 
-	  if (e.getItem().equals("Ducati3_0.1")) {rotrate=0; dt=0.0005; warp=50; n=3; N.disable();} else 
-	  if (e.getItem().equals("Ducati3_10")) {rotrate=0; dt=0.0005; warp=50; n=3; N.disable();} else 
-	  if (e.getItem().equals("Ducati3_1.2")) {rotrate=0; dt=0.0005; warp=50; n=3; N.disable();} else 
-	  if (e.getItem().equals("Ducati3_1.3")) {rotrate=0; dt=0.0005; warp=50; n=3; N.disable();} else 
-	  if (e.getItem().equals("Ducati3_alluneq")) {rotrate=0; dt=0.0005; warp=50; n=3; N.disable();} else 
-	  if (e.getItem().equals("Ducati3_alluneq2")) {rotrate=0; dt=0.0005; warp=50; n=3; N.disable();} else 
-	  if (e.getItem().equals("FigureEight4")) {rotrate=0; dt=0.0005; warp=50; n=4; N.disable();} else 
-	  if (e.getItem().equals("L1-L5 M/m=40")) {rotrate=0; dt=1.0e-5; warp=5; n=7; N.enable();}else 
+	  // Enable controls when a valid instance is selected
+	  if (e.getSource() == SELECTION) {
+	    boolean validSelection = !e.getItem().equals("--Select One--");
+	    setControlsEnabled(validSelection);
+	  }
+
+	  if (e.getItem().equals("L1-L5 M/m=2")) {rotrate=0; dt=1.0e-6; warp=200; n=7; N.enable();} else
+	  if (e.getItem().equals("LagrangeN")) {rotrate=0; dt=0.001; warp=5; n=100; N.enable();} else
+	  if (e.getItem().equals("Lagrange2")) {rotrate=0; dt=0.001; warp=20; n=2; N.disable();} else
+	  if (e.getItem().equals("Lagrange3")) {rotrate=0; dt=0.001; warp=20; n=3; N.disable();} else
+	  if (e.getItem().equals("Lagrange20")) {rotrate=0; dt=0.001; warp=20; n=20; N.disable();} else
+	  if (e.getItem().equals("FigureEight3")) {rotrate=0; dt=0.001; warp=20;n=3; N.disable();} else
+	  if (e.getItem().equals("FigureEight5")) {rotrate=0; dt=0.0001; warp=200;n=5; N.disable();} else
+	  if (e.getItem().equals("FigureEight21")) {rotrate=0; dt=0.0001; warp=200;n=21; N.disable();} else
+	  if (e.getItem().equals("Trefoil5")) {rotrate=0; dt=0.0001; warp=200;n=5; N.disable();} else
+	  if (e.getItem().equals("Braid4")) {rotrate=0; dt=0.0001; warp=200;n=4; N.disable();} else
+	  if (e.getItem().equals("LagrangeNa")) {rotrate=0; dt=0.001; warp=5; n=100; N.enable();} else
+	  if (e.getItem().equals("Saturn")) {rotrate=0; dt=0.00001; warp=5; n=100; N.enable();} else
+	  if (e.getItem().equals("Saturn2")) {rotrate=0; dt=0.00001; warp=5; n=100; N.enable();} else
+	  if (e.getItem().equals("Trefoil4")) {rotrate=0; dt=0.001; warp=5; n=4; N.disable();} else
+	  if (e.getItem().equals("FoldedTriLoop4")) {rotrate=0; dt=0.001; warp=5; n=4; N.disable();} else
+	  if (e.getItem().equals("Ducati3")) {rotrate=0; dt=0.001; warp=50; n=3; N.disable();} else
+	  if (e.getItem().equals("OrthQuasiEllipse4")) {rotrate=0; dt=0.0001; warp=500; n=4; N.disable();} else
+	  if (e.getItem().equals("PlateSaucer4")) {rotrate=0; dt=0.0001; warp=500; n=4; N.disable();} else
+	  if (e.getItem().equals("Rosette4")) {rotrate=0; dt=0.0005; warp=50; n=4; N.disable();} else
+	  if (e.getItem().equals("Hill15")) {rotrate=0; dt=0.0005; warp=50; n=3; N.disable();} else
+	  if (e.getItem().equals("DoubleDouble5")) {rotrate=0; dt=0.0005; warp=50; n=4; N.disable();} else
+	  if (e.getItem().equals("DoubleDouble10")) {rotrate=0; dt=0.0005; warp=50; n=4; N.disable();} else
+	  if (e.getItem().equals("DoubleDouble20")) {rotrate=0; dt=0.0005; warp=50; n=4; N.disable();} else
+	  if (e.getItem().equals("BorderCollie4")) {rotrate=0; dt=0.0005; warp=50; n=4; N.disable();} else
+	  if (e.getItem().equals("Lagrange3a")) {rotrate=0; dt=0.0005; warp=50; n=3; N.disable();} else
+	  if (e.getItem().equals("Test")) {rotrate=0; dt=0.0005; warp=50; n=4; N.disable();} else
+	  if (e.getItem().equals("Test1")) {rotrate=0; dt=0.0005; warp=50; n=4; N.disable();} else
+	  if (e.getItem().equals("Hill3_2")) {rotrate=0; dt=0.0005; warp=50; n=3; N.disable();} else
+	  if (e.getItem().equals("Hill3_3")) {rotrate=0; dt=0.0005; warp=50; n=3; N.disable();} else
+	  if (e.getItem().equals("Hill3_0.5")) {rotrate=0; dt=0.0005; warp=50; n=3; N.disable();} else
+	  if (e.getItem().equals("L5")) {rotrate=0; dt=0.0005; warp=50; n=4; N.disable();} else
+	  if (e.getItem().equals("Test2")) {rotrate=0; dt=0.0005; warp=50; n=4; N.disable();} else
+	  if (e.getItem().equals("Test3")) {rotrate=0; dt=0.0005; warp=50; n=3; N.disable();} else
+	  if (e.getItem().equals("Ducati3_2")) {rotrate=0; dt=0.0005; warp=50; n=3; N.disable();} else
+	  if (e.getItem().equals("Ducati3_0.5")) {rotrate=0; dt=0.0005; warp=50; n=3; N.disable();} else
+	  if (e.getItem().equals("Ducati3_0.1")) {rotrate=0; dt=0.0005; warp=50; n=3; N.disable();} else
+	  if (e.getItem().equals("Ducati3_10")) {rotrate=0; dt=0.0005; warp=50; n=3; N.disable();} else
+	  if (e.getItem().equals("Ducati3_1.2")) {rotrate=0; dt=0.0005; warp=50; n=3; N.disable();} else
+	  if (e.getItem().equals("Ducati3_1.3")) {rotrate=0; dt=0.0005; warp=50; n=3; N.disable();} else
+	  if (e.getItem().equals("Ducati3_alluneq")) {rotrate=0; dt=0.0005; warp=50; n=3; N.disable();} else
+	  if (e.getItem().equals("Ducati3_alluneq2")) {rotrate=0; dt=0.0005; warp=50; n=3; N.disable();} else
+	  if (e.getItem().equals("FigureEight4")) {rotrate=0; dt=0.0005; warp=50; n=4; N.disable();} else
+	  if (e.getItem().equals("L1-L5 M/m=40")) {rotrate=0; dt=1.0e-5; warp=5; n=7; N.enable();}else
 	  {}
-	  ROTRATE.setText(""+rotrate); 
+	  ROTRATE.setText(""+rotrate);
 	  DT.setText(""+dt); WARP.setText(""+warp); N.setText(""+n);
 	}
 
@@ -397,22 +408,35 @@ public class Galaxy extends JApplet implements ActionListener, WindowListener,
 	public void windowActivated(WindowEvent e) { }
 	public void windowDeactivated(WindowEvent e) { }
 
+	private void setControlsEnabled(boolean enabled) {
+		START.setEnabled(enabled);
+		PAUSEPLAY.setEnabled(enabled);
+		TRAIL.setEnabled(enabled);
+		APPLY.setEnabled(enabled);
+		if (menuStartItem != null) menuStartItem.setEnabled(enabled);
+		if (menuPauseItem != null) menuPauseItem.setEnabled(enabled);
+		if (menuTrailsItem != null) menuTrailsItem.setEnabled(enabled);
+	}
+
 	public void setupMenuBar(Frame frame) {
 		MenuBar menuBar = new MenuBar();
 
 		// Controls menu
 		Menu controlsMenu = new Menu("Controls");
-		MenuItem startItem = new MenuItem("Start", new MenuShortcut(KeyEvent.VK_R));
-		MenuItem pauseItem = new MenuItem("Pause", new MenuShortcut(KeyEvent.VK_P));
-		startItem.addActionListener(e -> START.doClick());
-		pauseItem.addActionListener(e -> PAUSEPLAY.doClick());
-		controlsMenu.add(startItem);
-		controlsMenu.add(pauseItem);
+		menuStartItem = new MenuItem("Start", new MenuShortcut(KeyEvent.VK_R));
+		menuPauseItem = new MenuItem("Pause", new MenuShortcut(KeyEvent.VK_P));
+		menuStartItem.addActionListener(e -> START.doClick());
+		menuPauseItem.addActionListener(e -> PAUSEPLAY.doClick());
+		menuStartItem.setEnabled(false);
+		menuPauseItem.setEnabled(false);
+		controlsMenu.add(menuStartItem);
+		controlsMenu.add(menuPauseItem);
 
 		// View menu
 		Menu viewMenu = new Menu("View");
 		menuTrailsItem = new CheckboxMenuItem("Show Trails", false);
 		menuTrailsItem.setShortcut(new MenuShortcut(KeyEvent.VK_T));
+		menuTrailsItem.setEnabled(false);
 		menuTrailsItem.addItemListener(e -> {
 			if (menuTrailsItem.getState()) {
 				if (TRAIL.getText().equals("Show Trails")) {
