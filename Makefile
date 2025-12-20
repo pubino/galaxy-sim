@@ -11,10 +11,13 @@
 #   make distclean - Remove all generated files including dist
 #
 # Requirements:
-#   - Java 14+ (for jpackage)
+#   - Java 25+ (for jpackage and language features)
 #   - For signing: Apple Developer certificate and notarization credentials
 
 SHELL := /bin/bash
+
+# Minimum Java version required
+MIN_JAVA_VERSION := 25
 
 # Directories
 PROJECT_DIR := $(shell pwd)
@@ -51,13 +54,53 @@ DISPLAY_NAME := Galaxy Simulator
 BUNDLE_ID := edu.princeton.vanderbei.galaxy-sim
 VERSION := 1.0.0
 
+# Check Java version
+JAVA_VERSION_RAW := $(shell $(JAVAC) -version 2>&1 | head -1 | sed 's/javac //' | cut -d. -f1)
+JAVA_VERSION := $(shell echo $(JAVA_VERSION_RAW) | grep -o '^[0-9]*')
+
+.PHONY: check-java
+check-java:
+	@if [ -z "$(JAVA_VERSION)" ]; then \
+		echo ""; \
+		echo "ERROR: Java compiler (javac) not found."; \
+		echo ""; \
+		echo "Please install Java $(MIN_JAVA_VERSION) or later:"; \
+		echo ""; \
+		echo "  macOS (Homebrew):"; \
+		echo "    brew install openjdk"; \
+		echo ""; \
+		echo "  Or download from:"; \
+		echo "    https://adoptium.net/"; \
+		echo ""; \
+		exit 1; \
+	elif [ "$(JAVA_VERSION)" -lt "$(MIN_JAVA_VERSION)" ]; then \
+		echo ""; \
+		echo "ERROR: Java $(MIN_JAVA_VERSION)+ required, but found Java $(JAVA_VERSION)."; \
+		echo ""; \
+		echo "Please upgrade your Java installation:"; \
+		echo ""; \
+		echo "  macOS (Homebrew):"; \
+		echo "    brew upgrade openjdk"; \
+		echo "    # or"; \
+		echo "    brew install openjdk"; \
+		echo ""; \
+		echo "  Or download from:"; \
+		echo "    https://adoptium.net/"; \
+		echo ""; \
+		echo "  After installing, ensure it's in your PATH:"; \
+		echo "    export JAVA_HOME=\$$(brew --prefix openjdk)"; \
+		echo "    export PATH=\$$JAVA_HOME/bin:\$$PATH"; \
+		echo ""; \
+		exit 1; \
+	fi
+
 # Default target
 .PHONY: all
 all: jar
 
 # Compile Java sources and create JAR
 .PHONY: jar
-jar: $(JAR_FILE)
+jar: check-java $(JAR_FILE)
 
 $(JAR_FILE): $(SOURCES)
 	@echo "=== Compiling Java sources ==="
