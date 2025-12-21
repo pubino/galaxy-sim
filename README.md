@@ -1,5 +1,7 @@
 # Galaxy Simulator
 
+Part of [Vanderbei's Java Simulations](https://github.com/pubino/vanderbei-apps) collection.
+
 A Java-based gravitational N-body simulator by Prof. Robert Vanderbei, Princeton University. This application visualizes orbital mechanics and celestial body interactions, demonstrating various periodic solutions to the N-body problem, including Lagrange points, figure-eight orbits, and other choreographic solutions.
 
 ## Running the Application
