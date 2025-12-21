@@ -2,7 +2,6 @@ package astro.galaxy;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.applet.*;
 // import java.awt.image.*;
 // import java.util.*;
 // import java.io.*;
@@ -12,7 +11,7 @@ import javax.swing.*;
 
 import myutil.*;
 
-public class Galaxy extends JApplet implements ActionListener, WindowListener,
+public class Galaxy extends JPanel implements SimApp, ActionListener, WindowListener,
 						ItemListener
 {	
         JTextField ROTRATE;
@@ -186,12 +185,16 @@ public class Galaxy extends JApplet implements ActionListener, WindowListener,
 	    controlPanel.add(tp);
 	    controlPanel.add(bp);
 
-	    Container c = getContentPane();
+	    Container c = this;
 	    c.setLayout(new BorderLayout());
 	    c.add(gc, BorderLayout.CENTER);
 	    c.add(controlPanel, BorderLayout.SOUTH);
 	    // add(gc);
 	    // gc.show();
+	}
+
+	public void start() {
+		// No-op for this simulation
 	}
 
 	public void itemStateChanged(ItemEvent e) {
