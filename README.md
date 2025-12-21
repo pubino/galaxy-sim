@@ -265,7 +265,3 @@ This simulator was originally written as a Java Applet for web browsers. It has 
 - Lagrange Points: https://en.wikipedia.org/wiki/Lagrange_point
 - Three-body problem: https://en.wikipedia.org/wiki/Three-body_problem
 - Choreographic solutions: Moore (1993), Chenciner & Montgomery (2000)
-
-## License
-
-Educational/Research use.
