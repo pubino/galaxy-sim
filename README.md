@@ -1,5 +1,25 @@
 # Galaxy Simulator
 
+[Run in your browser](https://pubino.github.io/galaxy-sim/).
+
+The browser builds its 42 initial conditions and Fourier reference paths
+from the original Java source. Python preserves the five numerical
+integrator branches, including the desktop Hermite jerk update, and the
+Animate Only mode advances time and rotation with fixed coordinates.
+The Runge–Kutta 4 menu item calls the original four-stage routine.
+
+The six adjustable presets accept 2 to 200 bodies. **Step** advances one
+integration step. Timing and frame-rotation edits apply to the next step.
+Energy uses the original unsoftened diagnostic and displays a dash when
+the bodies coincide and the diagnostic is undefined.
+
+Preview with `docker-compose up --build preview` on http://localhost:8000.
+Run the Java comparison, Python checks, and Chromium tests with
+`docker-compose run --build --rm test`. Run the JavaScript checks with
+`docker-compose run --build --rm js-check`.
+
+
+
 Part of [Prof. Robert Vanderbei's Java Applications](https://pubino.github.io/vanderbei-apps#galaxy-sim).
 
 A Java-based gravitational N-body simulator by Prof. Robert Vanderbei, Princeton University. This application visualizes orbital mechanics and celestial body interactions, demonstrating various periodic solutions to the N-body problem, including Lagrange points, figure-eight orbits, and other choreographic solutions.

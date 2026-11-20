@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>Galaxy</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="style.css">
+  <script type="module" src="app.js"></script>
+</head>
+<body>
+  <main>
+    <header>
+      <p class="eyebrow"><a href="https://pubino.github.io/vanderbei-apps/#galaxy-sim">Vanderbei’s applications</a> · Princeton University</p>
+      <h1>Galaxy</h1>
+      <p class="intro">Explore periodic orbits, Lagrange configurations, and rings. Switch integrators and compare the simulated motion with the original reference paths.</p>
+    </header>
+    <section class="panel" aria-labelledby="plot-title">
+      <h2 id="plot-title">Orbit view</h2>
+      <div class="viewer">
+        <div>
+          <canvas id="plot" width="720" height="720" role="img" aria-label="Planar orbits and reference paths"></canvas>
+          <ul class="key" aria-label="Plot legend">
+            <li><span class="orbit"></span> Reference path</li>
+            <li><span class="body"></span> Body</li>
+          </ul>
+          <dl class="facts">
+            <div><dt>Step</dt><dd id="step-number">—</dd></div>
+            <div><dt>Time (t/2π)</dt><dd id="time">—</dd></div>
+            <div><dt>Bodies</dt><dd id="body-count">—</dd></div>
+            <div><dt>Energy</dt><dd id="energy">—</dd></div>
+          </dl>
+        </div>
+        <form id="settings">
+          <fieldset id="inputs" disabled>
+            <legend>Simulation</legend>
+            <label class="field" for="preset">Instance</label>
+            <select id="preset" data-initial></select>
+            <label class="field" for="method">Integrator</label>
+            <select id="method" data-initial>
+              <option value="hermite">Hermite</option>
+              <option value="midpoint">Midpoint (Leapfrog)</option>
+              <option value="euler">Euler</option>
+              <option value="rk4">Runge–Kutta 4</option>
+              <option value="trapnewt">TrapNewt</option>
+              <option value="animate">Animate Only</option>
+            </select>
+            <div class="form-grid">
+              <label class="field">Time step<input id="dt" type="number" min="0.00000001" max="0.2" step="any" value="0.0005" required></label>
+              <label class="field" title="Steps per displayed frame">Warp<input id="warp" type="number" min="1" max="500" step="1" value="50" required></label>
+              <label class="field">Bodies<input id="count" data-initial type="number" min="2" max="200" step="1" value="3" required></label>
+              <label class="field">Frame rotation<input id="rotation" type="number" min="-1000" max="1000" step="any" value="0" required></label>
+            </div>
+          </fieldset>
+          <div class="actions">
+            <button id="play" type="button" disabled>Start</button>
+            <button id="step" type="button" class="secondary" disabled>Step</button>
+            <button id="reset" type="button" class="secondary" disabled>Reset</button>
+          </div>
+          <p class="hint">Time step, warp, and rotation changes apply on the next step while paused.</p>
+          <p id="status" class="hint" role="status">Loading the Python engine…</p>
+          <p id="error" role="alert" hidden></p>
+          <button id="retry" class="secondary" type="button" hidden>Reload</button>
+          <fieldset class="view-settings">
+            <legend>View</legend>
+
+            <label class="field">Zoom<input id="zoom" data-view type="range" min="-3" max="5" step="0.25" value="0"></label>
+            <label class="switch"><input id="paths" type="checkbox" checked> Reference paths</label>
+            <label class="switch"><input id="trails" type="checkbox"> Recent trails</label>
+          </fieldset>
+        </form>
+      </div>
+    </section>
+    <footer>
+      <p>Based on Robert Vanderbei’s original Java application. Python runs in your browser via
+        <a href="https://pyodide.org/">Pyodide</a>. <a href="https://github.com/pubino/galaxy-sim">Source on GitHub</a>.</p>
+    </footer>
+  </main>
+</body>
+</html>
